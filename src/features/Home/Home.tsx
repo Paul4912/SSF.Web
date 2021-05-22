@@ -7,10 +7,10 @@ interface props {
 }
 
 const Home: React.SFC<props> = (props: props) => {
-    var render = 'abc'
-    if(props.users) {
-        render = props.users[0].name
-    }
+    // var render = 'abc'
+    // if(props.users) {
+    //     render = props.users[0].name
+    // }
     return (
         <div className='Homepage'>
             <h1 className='Heading'>Stupid Sexy Flanders</h1>
