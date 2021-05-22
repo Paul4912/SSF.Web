@@ -15,7 +15,7 @@ const Home: React.SFC<props> = (props: props) => {
         <div className='Homepage'>
             <h1 className='Heading'>Stupid Sexy Flanders</h1>
             <div className='FlandersImg'>
-                <img src={FlandersImg}/>
+                <img alt="" src={FlandersImg}/>
             </div>
             <div className='BuySSF'>
                 <Button className="Button" size="large" variant="contained" color="primary" onClick={() => { window.open('https://exchange.pancakeswap.finance/#/swap?outputCurrency=0x0b151aa48399e0b38af83686f1b094605f8ed2a5'); }}>
