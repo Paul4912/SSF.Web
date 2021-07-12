@@ -1,13 +1,15 @@
 import React from 'react'
 import { Route, BrowserRouter } from 'react-router-dom'
 import './App.scss';
-import HomeContainer from './features/Home/HomeContainer'
+import Home from './features/Home/Home'
+import CreateMeme from './features/CreateMeme/CreateMeme'
 
 const App: React.FC = () => {
   return (
     <div className="App">
       <BrowserRouter>
-        <Route path="/" component={HomeContainer} />
+        <Route exact path="/" component={Home} />
+        <Route path="/CreateMeme" component={CreateMeme} />
       </BrowserRouter>
     </div>
   );
