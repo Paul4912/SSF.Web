@@ -3,10 +3,11 @@ import { create as ipfsHttpClient } from 'ipfs-http-client';
 import { useHistory } from "react-router-dom";
 import Web3Modal from 'web3modal';
 import { ethers } from 'ethers';
-import NFT from '../../artifacts/contracts/Marketplace.sol/NFT.json'
+import NFT from '../../artifacts/contracts/Marketplace.sol/NFT.json';
 import {
   nftaddress
-} from '../../config'
+} from '../../config';
+import walletModal from "../../utilities/WalletProviders";
 
 const client = ipfsHttpClient({url: 'https://ipfs.infura.io:5001/api/v0'});
 
@@ -50,8 +51,7 @@ const CreateMeme: React.FC = () => {
       }
 
     async function executeCreateNFTContract(url: string) {
-        const web3Modal = new Web3Modal();
-        const connection = await web3Modal.connect();
+        const connection = await walletModal.connect();
         const provider = new ethers.providers.Web3Provider(connection);
         const signer = provider.getSigner();
         

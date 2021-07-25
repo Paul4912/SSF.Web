@@ -1,20 +1,27 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Button from '@material-ui/core/Button'
 import FlandersImg from '../../Ned_Flanders.png'
 import { useHistory } from "react-router-dom";
+import Web3Modal from 'web3modal';
+import { ethers } from 'ethers';
+import axios from 'axios';
+import walletModal from "../../utilities/WalletProviders";
+
 
 const Home: React.FC = () => {
 
     const history = useHistory();
-    const routeChange = () =>{ 
-        let path = `creatememe`; 
+    const routeChange = (path: string) =>{ 
         history.push(path);
     }
 
     return (
         <div className='Homepage'>
-            <Button className="CreateMemeLink" size="large" variant="contained" color="primary" onClick={() => { routeChange(); }}>
+            <Button className="CreateMemeLink" size="large" variant="contained" color="primary" onClick={() => { routeChange("CreateMeme"); }}>
                     Immortalise Your Meme
+            </Button>
+            <Button className="MyNFTsLink" size="large" variant="contained" color="primary" onClick={() => { routeChange("MyNFTs"); }}>
+                    My NFTs
             </Button>
             <h1 className='Heading'>Stupid Sexy Flanders</h1>
             <div className='FlandersImg'>
