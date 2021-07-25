@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { create as ipfsHttpClient } from 'ipfs-http-client';
 import { useHistory } from "react-router-dom";
-import Web3Modal from 'web3modal';
 import { ethers } from 'ethers';
 import NFT from '../../artifacts/contracts/Marketplace.sol/NFT.json';
 import {
@@ -44,10 +43,11 @@ const CreateMeme: React.FC = () => {
         try {
           const addedResult = await client.add(nftData);
           const url = `https://ipfs.infura.io/ipfs/${addedResult.path}`;
-          executeCreateNFTContract(url);
+          await executeCreateNFTContract(url);
         } catch (error) {
           console.log('Error uploading file: ', error)
         }  
+        history.push('/MyNFTs');
       }
 
     async function executeCreateNFTContract(url: string) {
@@ -62,8 +62,6 @@ const CreateMeme: React.FC = () => {
         //let event = tx.events[0];
         //let value = event.args[2];
         //let tokenId = value.toNumber();
-
-        history.push('/');
     }
 
     return (
