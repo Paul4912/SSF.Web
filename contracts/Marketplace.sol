@@ -26,6 +26,22 @@ contract NFT is ERC721URIStorage {
         setApprovalForAll(contractAddress, true);
         return newItemId;
     }
+
+    function fetchMyNFTs() public view returns (uint[] memory) {
+        uint totalItemCount = _tokenIds.current();
+        uint currentIndex = 0;
+
+        uint balance = balanceOf(msg.sender);
+        uint[] memory items = new uint[](balance);
+        for (uint i = 0; i < totalItemCount; i++) {
+            if (ownerOf(i + 1) == msg.sender) {
+                items[currentIndex] = i + 1;
+                currentIndex += 1;
+            }
+        }
+    
+        return items;
+    }
 }
 
 contract NFTMarket is ReentrancyGuard {
