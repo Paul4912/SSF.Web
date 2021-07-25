@@ -1,11 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import Button from '@material-ui/core/Button'
 import FlandersImg from '../../Ned_Flanders.png'
 import { useHistory } from "react-router-dom";
-import Web3Modal from 'web3modal';
-import { ethers } from 'ethers';
-import axios from 'axios';
-import walletModal from "../../utilities/WalletProviders";
 
 
 const Home: React.FC = () => {

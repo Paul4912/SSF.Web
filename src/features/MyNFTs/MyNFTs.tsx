@@ -52,7 +52,7 @@ const MyNFTs: React.FC = () => {
           {
             nfts.map((nft, i) => (
               <div key={i} className="MyNFT">
-                <img src={nft.image} className="rounded" />
+                <img src={nft.image} className="rounded" alt="NFT" />
                 <div className="NFT-Caption">
                   <p className="NFT-Name">Name: {nft.name}</p>
                   <p className="NFT-Description">Description: {nft.description}</p>
