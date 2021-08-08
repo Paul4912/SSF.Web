@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { create as ipfsHttpClient } from 'ipfs-http-client';
 import { useHistory } from "react-router-dom";
 import { ethers } from 'ethers';
-import NFT from '../../artifacts/contracts/Marketplace.sol/NFT.json';
+import NFT from '../../artifacts/contracts/NFT.sol/NFT.json';
+import SSF from '../../artifacts/contracts/SSF.sol/StupidSexyFlanders.json';
 import {
-  nftaddress
+  nftaddress,
+  ssfaddress
 } from '../../config';
 import walletModal from "../../utilities/WalletProviders";
 
@@ -41,14 +43,15 @@ const CreateMeme: React.FC = () => {
         });
         
         try {
+          await approveSSF();
           const addedResult = await client.add(nftData);
           const url = `https://ipfs.infura.io/ipfs/${addedResult.path}`;
           await executeCreateNFTContract(url);
         } catch (error) {
-          console.log('Error uploading file: ', error)
+          console.log(error)
         }  
         history.push('/MyNFTs');
-      }
+    }
 
     async function executeCreateNFTContract(url: string) {
         const connection = await walletModal.connect();
@@ -58,10 +61,16 @@ const CreateMeme: React.FC = () => {
         let contract = new ethers.Contract(nftaddress, NFT.abi, signer);
         let transaction = await contract.createToken(url);
         await transaction.wait();
-        //let tx = await transaction.wait();
-        //let event = tx.events[0];
-        //let value = event.args[2];
-        //let tokenId = value.toNumber();
+    }
+
+    async function approveSSF() {
+      const connection = await walletModal.connect();
+      const provider = new ethers.providers.Web3Provider(connection);
+      const signer = provider.getSigner();
+      
+      let contract = new ethers.Contract(ssfaddress, SSF.abi, signer);
+      let transaction = await contract.approve(nftaddress, ethers.utils.parseEther('1000000000000000'));
+      await transaction.wait();
     }
 
     return (

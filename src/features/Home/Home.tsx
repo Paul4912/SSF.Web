@@ -19,6 +19,9 @@ const Home: React.FC = () => {
             <Button className="MyNFTsLink" size="large" variant="contained" color="primary" onClick={() => { routeChange("MyNFTs"); }}>
                     My NFTs
             </Button>
+            <Button className="MarketplaceLink" size="large" variant="contained" color="primary" onClick={() => { routeChange("Market"); }}>
+                    Marketplace
+            </Button>
             <h1 className='Heading'>Stupid Sexy Flanders</h1>
             <div className='FlandersImg'>
                 <img alt="" src={FlandersImg}/>
