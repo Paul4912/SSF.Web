@@ -4,6 +4,7 @@ pragma solidity ^0.8.3;
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 import "hardhat/console.sol";
 
@@ -13,6 +14,7 @@ contract NFTMarket is ReentrancyGuard {
   Counters.Counter private _itemsSold;
 
   address payable owner;
+  address constant ssfAddress = 0x0B151Aa48399e0B38aF83686F1b094605f8ed2a5;
   uint256 listingPrice = 0.0001 ether;
 
   constructor() {
@@ -161,5 +163,10 @@ contract NFTMarket is ReentrancyGuard {
     uint amount = address(this).balance;
     (bool success,) = owner.call{value: amount}("");
     require(success, "Failed to send Bnb");
+  }
+
+  function withdrawSSF() public onlyOwner {
+    uint balance = IERC20(ssfAddress).balanceOf(address(this));
+    IERC20(ssfAddress).transfer(owner, balance);
   }
 }

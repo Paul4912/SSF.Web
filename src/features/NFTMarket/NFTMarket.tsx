@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { ethers } from 'ethers';
 import axios from 'axios';
 import walletModal from "../../utilities/WalletProviders";
-import { BigNumber } from '@ethersproject/bignumber';
 import { useHistory } from "react-router-dom";
 
 import {
@@ -74,24 +73,13 @@ const NFTMarket: React.FC = () => {
         history.push('/MyNFTs');
     }
 
-    async function withdraw() {
-        const connection = await walletModal.connect();
-        const provider = new ethers.providers.Web3Provider(connection);
-        const signer = provider.getSigner();
-
-        let marketContract = new ethers.Contract(nftmarketaddress, Market.abi, signer);
-        console.log(marketContract)
-        let transaction = await marketContract.withdraw();
-        await transaction.wait();
-    }
-
     if (loadingState === 'loaded' && !nfts.length) return (<h1 className="EmptyMarket">No items in marketplace</h1>)
     return (
         <div className='NFTMarket'>
             {
                 nfts.map((nft, i) => (
                 <div key={i} className="MarketItems">
-                    <img src={nft.image} />
+                    <img src={nft.image} alt="nft" />
                     <div className="MarketItem-Text">
                         <p className="MarketItem-Name">{nft.name}</p>
                         <p className="MarketItem-Desc">{nft.description}</p>

@@ -41,14 +41,15 @@ const MyNFTs: React.FC = () => {
   const [tokenId, updateTokenId] = useState<number>(0)
   
   useEffect(() => {
+
+    async function loadAllOwnedNFTs() {
+      await loadNFTs();
+      await loadListedNFTs();
+      setLoadingState('loaded');
+    }
+
     loadAllOwnedNFTs()
   }, [])
-
-  async function loadAllOwnedNFTs() {
-    await loadNFTs();
-    await loadListedNFTs();
-    setLoadingState('loaded');
-  }
 
   async function loadNFTs() {
     const connection = await walletModal.connect();
@@ -106,7 +107,7 @@ const MyNFTs: React.FC = () => {
 
     let transaction = await contract.createMarketItem(nftaddress, tokenId, priceInWei, { value: listingPrice })
     await transaction.wait()
-    history.push('/MyNFTs');
+    history.push('/Market');
   }
 
   async function unlistFromMarket(itemId: number) {
