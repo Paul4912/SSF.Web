@@ -12,9 +12,7 @@ contract NFT is ERC721URIStorage {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
     address contractAddress;
-    //address constant ssfAddress = 0x0B151Aa48399e0B38aF83686F1b094605f8ed2a5; prod
-    //address constant ssfAddress = 0x0F60B1e00D6d1644e7983AbD875EF7e0E7eBEe2d; test
-    address constant ssfAddress = 0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9;
+    address constant ssfAddress = 0x0B151Aa48399e0B38aF83686F1b094605f8ed2a5;
     uint256 mintingPrice = 1000000000 ether;
     address payable owner;
 
@@ -31,7 +29,7 @@ contract NFT is ERC721URIStorage {
     function createToken(string memory tokenUri) public returns (uint) {
         uint256 allowance = IERC20(ssfAddress).allowance(msg.sender, address(this));
         require(allowance >= mintingPrice, "Check the token allowance");
-        IERC20(ssfAddress).transferFrom(msg.sender, address(this), mintingPrice);
+        IERC20(ssfAddress).transferFrom(msg.sender, contractAddress, mintingPrice);
 
         _tokenIds.increment();
         uint256 newItemId = _tokenIds.current();
