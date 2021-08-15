@@ -1,5 +1,5 @@
 import Web3Modal from "web3modal"
-import WalletConnectProvider from "@walletconnect/web3-provider";
+import WalletConnectProvider from "@walletconnect/ethereum-provider";
 
 const providerOptions = {
     walletconnect: {
@@ -9,6 +9,7 @@ const providerOptions = {
             56: 'https://bsc-dataseed.binance.org/'
           },
           network: 'binance',
+          chainId: 56
         }
     }
 };
