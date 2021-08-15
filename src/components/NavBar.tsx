@@ -45,6 +45,9 @@ const NavBar: React.FC = () => {
 
     const loggedInView = <div id="account">
         <p id="account-text">{account}</p>
+        <Button className="account-button" size="medium" variant="contained" color="primary" onClick={() => { clearWalletCache(); }}>
+            Disconnect
+        </Button>
     </div>
 
     const loggedOutView = <div id="account">
